@@ -19,8 +19,7 @@ public class LinkedList {
         Node head = new Node(rand.nextInt(10));
         Node curr = head;
         for (int i = 0; i < 10; i++) {
-            Node temp = new Node(rand.nextInt(10));
-            curr.next = temp;
+            curr.next = new Node(rand.nextInt(10));
             curr = curr.next;
         }
 
@@ -33,7 +32,13 @@ public class LinkedList {
 
         Scanner kb = new Scanner(System.in);
         System.out.print("Enter one of the values to delete: ");
-        int x = kb.nextInt();
+        int x = 0;
+        try{
+            x = kb.nextInt();
+        }catch (InputMismatchException e){
+            System.out.print("Please Restart the Program and Use a Value that is an Integer.");
+            System.exit(1);
+        }
 
         // deletion
         if (head.data == x){
@@ -42,16 +47,37 @@ public class LinkedList {
         Node temp = head;
         curr = head.next;
         while (curr != null){
-            if (curr.data == x && curr.next != null){
-                temp.next = curr.next;
-            }
-            if (curr.data == x && curr.next == null){
-                temp.next = null;
+            if (curr.data == x){
+                temp.next = curr.next; // Skip current node
+            } else {
+                temp = temp.next; // Move forward only if no deletion
             }
             curr = curr.next;
-            temp = temp.next;
         }
 
+
+        //insert at the head
+        head.next = new Node(20,head.next);
+        //insert at the end
+        curr = head;
+        Node newNode2 = new Node(40,null);
+        while(curr.next != null){
+            curr = curr.next;
+        }
+        curr.next = newNode2;
+        //insert at node 4
+        int num = 4;
+        curr = head;
+        temp = head;
+        for(int i = 0;i < num;i++){
+            if(i<num - 2){
+                curr = curr.next;
+            }
+            else{
+                temp = curr.next;
+            }
+        }
+        curr.next = new Node(60,temp.next);
 
         //print again
         curr = head;
